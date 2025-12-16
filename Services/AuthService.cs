@@ -1,6 +1,6 @@
-﻿using Auth_API.DTOs;
-using Auth_API.Models;
-using Auth_API.Repositories;
+﻿using AuthApi.DTOs;
+using AuthApi.Models;
+using AuthApi.Repositories;
 using BCrypt.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;   // JWT token security
