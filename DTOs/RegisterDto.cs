@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Auth_API.DTOs
+namespace AuthApi.DTOs
 {
     public class RegisterDto
     {

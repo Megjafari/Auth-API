@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Auth_API.Models;
-using Auth_API.Data;
+﻿using AuthApi.Models;
+using AuthApi.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Auth_API.Repositories
+namespace AuthApi.Repositories
 {
     public class UserRepository // Repository for managing User entities
     {

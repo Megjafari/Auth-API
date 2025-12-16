@@ -1,5 +1,5 @@
-﻿using Auth_API.Data;
-using Auth_API.Repositories;
+﻿using AuthApi.Data;
+using AuthApi.Repositories;
 using AuthApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
