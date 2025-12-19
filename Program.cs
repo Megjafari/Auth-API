@@ -9,18 +9,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+Console.WriteLine("### AUTH API STARTED ###");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=auth.db"));
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddControllers();
 
 // JWT Authentication
-var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT:Key configuration is missing.");
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "SUPER_SECRET_KEY"; // Default if missing
 var key = Encoding.ASCII.GetBytes(jwtKey);
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

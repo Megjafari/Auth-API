@@ -6,19 +6,24 @@ using System.Security.Claims;
 
 namespace AuthApi.Controllers
 {
-    [ApiController] // Marks the class as a controller for handling API requests
-    [Route("api/[controller]")] // Route template for the controller
-    public class AuthController : ControllerBase  // Inherits from ControllerBase to provide API functionalities
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
-        private readonly AuthService _authService; // Service for authentication operations
+        private readonly AuthService _authService;
 
-        public AuthController(AuthService authService)  // Constructor with dependency injection
+        public AuthController(AuthService authService)
         {
             _authService = authService;
         }
 
-        [HttpPost("register")] // Endpoint for user registration
-        public async Task<IActionResult> Register(RegisterDto dto) // Accepts registration data
+        // Test endpoint
+        [HttpGet("ping")]
+        public IActionResult Ping() => Ok("pong");
+
+        // Register user
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             try
             {
@@ -27,12 +32,13 @@ namespace AuthApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message }); // Return error message if registration fails
+                return BadRequest(new { message = ex.Message });
             }
         }
 
-        [HttpPost("login")] // Endpoint for user login
-        public async Task<IActionResult> Login(LoginDto dto)
+        // Login user
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             try
             {
@@ -41,17 +47,18 @@ namespace AuthApi.Controllers
             }
             catch (Exception ex)
             {
-                return Unauthorized(new { message = ex.Message }); // Return error message if login fails
+                return Unauthorized(new { message = ex.Message });
             }
         }
 
+        // Protected endpoint
         [Authorize]
-        [HttpGet("me")] // Endpoint to get current user info, requires authorization
-        public IActionResult Me() // Returns the authenticated user's information
+        [HttpGet("me")]
+        public IActionResult Me()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var email = User.FindFirstValue(ClaimTypes.Email);
-            return Ok(new { Id = userId, Email = email }); // Return user ID and email
+            return Ok(new { Id = userId, Email = email });
         }
     }
 }
